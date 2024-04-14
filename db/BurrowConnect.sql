@@ -1,155 +1,216 @@
 CREATE DATABASE IF NOT EXISTS BurrowConnect;
 USE BurrowConnect;
 
-CREATE TABLE Owner (
-    OwnerID INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Owner
+(
+    ownerID    INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    gender VARCHAR(50),
-    email VARCHAR(255) NOT NULL,
-    birthdate DATE NOT NULL,
-    age INT
+    last_name  VARCHAR(255) NOT NULL,
+    gender     VARCHAR(50),
+    email      VARCHAR(255) NOT NULL,
+    bio        text,
+    age        INT
 );
 
-CREATE TABLE Traveler (
-    TravelerID INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Traveler
+(
+    travelerID INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    gender VARCHAR(50) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    birthdate DATE NOT NULL
+    last_name  VARCHAR(255) NOT NULL,
+    gender     VARCHAR(50)  NOT NULL,
+    age        INT          NOT NULL,
+    email      VARCHAR(255) NOT NULL,
+    bio        text
 );
 
-CREATE TABLE Property (
-    PropertyID INT PRIMARY KEY AUTO_INCREMENT,
-    Address VARCHAR(255),
-    City VARCHAR(100),
-    State VARCHAR(50),
-    ZipCode VARCHAR(20),
-    PurchasePrice DECIMAL(10, 2),
-    SalePrice DECIMAL(10, 2),
-    ListDate DATE,
-    SaleDate DATE,
-    PropertyStatus VARCHAR(50)
+CREATE TABLE Property
+(
+    propertyID  INT PRIMARY KEY AUTO_INCREMENT,
+    address     VARCHAR(255) NOT NULL,
+    city        VARCHAR(100) NOT NULL,
+    region      VARCHAR(50)  NOT NULL,
+    country     VARCHAR(20)  NOT NULL,
+    type        varchar(20)  NOT NULL,
+    description text         NOT NULL,
+    title       text         NOT NULL,
+    price       int          NOT NULL,
+    ownerID     int,
+
+    FOREIGN KEY (ownerID) REFERENCES Owner (ownerID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+
+
 );
 
-CREATE TABLE PropertyReview (
-    ReviewID INT PRIMARY KEY AUTO_INCREMENT,
-    ReviewDate DATE NOT NULL,
-    content VARCHAR(1000) NOT NULL,
-    TravelerID INT NOT NULL,
-    PropertyID INT NOT NULL,
-    FOREIGN KEY (TravelerID) REFERENCES Traveler(TravelerID),
-    FOREIGN KEY (PropertyID) REFERENCES Property(PropertyID)
+CREATE TABLE PropertyReview
+(
+    reviewID   INT PRIMARY KEY AUTO_INCREMENT,
+    reviewDate DATE          NOT NULL,
+    content    VARCHAR(1000) NOT NULL,
+    travelerID INT           NOT NULL,
+    propertyID INT           NOT NULL,
+    FOREIGN KEY (travelerID) REFERENCES Traveler (travelerID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    FOREIGN KEY (propertyID) REFERENCES Property (propertyID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
 
-CREATE TABLE Stay_Messages (
-    MessID INT PRIMARY KEY AUTO_INCREMENT,
-    content TEXT NOT NULL,
-    DateSent DATE NOT NULL,
-    TravelerID INT,
-    OwnerID INT NOT NULL,
-    FOREIGN KEY (OwnerID) REFERENCES Owner(OwnerID),
-    FOREIGN KEY (TravelerID) REFERENCES Traveler(TravelerID)
+CREATE TABLE Stay_Messages
+(
+    messID     INT PRIMARY KEY AUTO_INCREMENT,
+    content    TEXT NOT NULL,
+    dateSent   DATE NOT NULL,
+    travelerID INT,
+    ownerID    INT  NOT NULL,
+    FOREIGN KEY (ownerID) REFERENCES Owner (ownerID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    FOREIGN KEY (travelerID) REFERENCES Traveler (travelerID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
 
-CREATE TABLE Stay_At (
-    StayID INT PRIMARY KEY AUTO_INCREMENT,
-    StartDate DATE NOT NULL,
-    EndDate DATE NOT NULL,
-    TravelerID INT,
-    PropertyID INT,
-    FOREIGN KEY (TravelerID) REFERENCES Traveler(TravelerID),
-    FOREIGN KEY (PropertyID) REFERENCES Property(PropertyID)
+CREATE TABLE Stay_At
+(
+    stayID     INT PRIMARY KEY AUTO_INCREMENT,
+    startDate  DATE NOT NULL,
+    endDate    DATE NOT NULL,
+    travelerID INT,
+    propertyID INT,
+    FOREIGN KEY (travelerID) REFERENCES Traveler (travelerID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    FOREIGN KEY (propertyID) REFERENCES Property (propertyID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
 
-CREATE TABLE ExperienceProviders (
-    ProviderID INT PRIMARY KEY AUTO_INCREMENT,
-    CompanyName VARCHAR(500) UNIQUE,
-    address VARCHAR(250) NOT NULL,
-    city VARCHAR(50) NOT NULL,
-    region VARCHAR(50) NOT NULL,
-    country VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
+CREATE TABLE ExperienceProviders
+(
+    providerID  INT PRIMARY KEY AUTO_INCREMENT,
+    companyName VARCHAR(500) UNIQUE,
+    address     VARCHAR(250)  NOT NULL,
+    city        VARCHAR(50)   NOT NULL,
+    region      VARCHAR(50)   NOT NULL,
+    country     VARCHAR(50)   NOT NULL,
+    email       VARCHAR(50)   NOT NULL,
     description VARCHAR(2000) NOT NULL
 );
 
-CREATE TABLE Experience_Reviews (
-    ReviewID INT PRIMARY KEY AUTO_INCREMENT,
-    content VARCHAR(1000) NOT NULL,
-    date DATE NOT NULL,
-    ProviderID INT,
-    TravelerID INT,
-    FOREIGN KEY (ProviderID) REFERENCES ExperienceProviders(ProviderID),
-    FOREIGN KEY (TravelerID) REFERENCES Traveler(TravelerID)
+CREATE TABLE Experience_Reviews
+(
+    reviewID   INT PRIMARY KEY AUTO_INCREMENT,
+    content    VARCHAR(1000) NOT NULL,
+    date       DATE          NOT NULL,
+    providerID INT,
+    travelerID INT,
+    FOREIGN KEY (providerID) REFERENCES ExperienceProviders (providerID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    FOREIGN KEY (travelerID) REFERENCES Traveler (travelerID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
 
-CREATE TABLE AdLiaison (
-    LiaisonID INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE AdLiaison
+(
+    liaisonID  INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL
+    last_name  VARCHAR(255) NOT NULL,
+    email      VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Advertiser (
-    AdvertiserID INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    CompanyName VARCHAR(500) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    Package VARCHAR(50) NOT NULL,
-    LiaisonID INT,
-    FOREIGN KEY (LiaisonID) REFERENCES AdLiaison(LiaisonID)
+CREATE TABLE Advertiser
+(
+    advertiserID INT PRIMARY KEY AUTO_INCREMENT,
+    first_name   VARCHAR(255) NOT NULL,
+    last_name    VARCHAR(255) NOT NULL,
+    companyName  VARCHAR(500) NOT NULL,
+    email        VARCHAR(255) NOT NULL,
+    package      VARCHAR(50)  NOT NULL,
+    liaisonID    INT,
+    FOREIGN KEY (liaisonID) REFERENCES AdLiaison (liaisonID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
 
-CREATE TABLE Experience_Ads (
-    ExID INT PRIMARY KEY AUTO_INCREMENT,
-    Package VARCHAR(50) NOT NULL,
-    ProviderID INT,
-    AdvertiserID INT,
-    FOREIGN KEY (ProviderID) REFERENCES ExperienceProviders(ProviderID),
-    FOREIGN KEY (AdvertiserID) REFERENCES Advertiser(AdvertiserID)
+CREATE TABLE Experience_Ads
+(
+    adID         INT PRIMARY KEY AUTO_INCREMENT,
+    package      VARCHAR(50) NOT NULL,
+    providerID   INT,
+    advertiserID INT,
+    FOREIGN KEY (providerID) REFERENCES ExperienceProviders (providerID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    FOREIGN KEY (advertiserID) REFERENCES Advertiser (advertiserID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
 
-CREATE TABLE Travel_Date (
-    TravelerID INT,
-    AdvertiserID INT,
-    FOREIGN KEY (TravelerID) REFERENCES Traveler(TravelerID),
-    FOREIGN KEY (AdvertiserID) REFERENCES Advertiser(AdvertiserID),
-    PRIMARY KEY (TravelerID, AdvertiserID)
+CREATE TABLE Travel_Data
+(
+    travelerID   INT,
+    advertiserID INT,
+    FOREIGN KEY (travelerID) REFERENCES Traveler (travelerID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    FOREIGN KEY (advertiserID) REFERENCES Advertiser (advertiserID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    PRIMARY KEY (travelerID, advertiserID)
 );
 
-CREATE TABLE Property_Data (
-    AdvertiserID INT,
-    PropertyID INT,
-    FOREIGN KEY (AdvertiserID) REFERENCES Advertiser(AdvertiserID),
-    FOREIGN KEY (PropertyID) REFERENCES Property(PropertyID),
-    PRIMARY KEY (AdvertiserID, PropertyID)
+CREATE TABLE Property_Data
+(
+    advertiserID INT,
+    propertyID   INT,
+    FOREIGN KEY (advertiserID) REFERENCES Advertiser (advertiserID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    FOREIGN KEY (propertyID) REFERENCES Property (propertyID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    PRIMARY KEY (advertiserID, propertyID)
 );
 
-CREATE TABLE Bundle (
-    BundleID INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Bundle
+(
+    bundleID    INT PRIMARY KEY AUTO_INCREMENT,
     description VARCHAR(2000) NOT NULL,
-    type VARCHAR(100) NOT NULL,
-    title VARCHAR(100) NOT NULL,
-    price INT
+    type        VARCHAR(100)  NOT NULL,
+    title       VARCHAR(100)  NOT NULL,
+    price       INT
 );
 
-CREATE TABLE Experience (
-    ExperienceID INT PRIMARY KEY AUTO_INCREMENT,
-    date DATE NOT NULL,
-    BundleID INT NOT NULL,
-    TravelerID INT,
-    FOREIGN KEY (BundleID) REFERENCES Bundle(BundleID),
-    FOREIGN KEY (TravelerID) REFERENCES Traveler(TravelerID)
+CREATE TABLE Experience
+(
+    experienceID INT PRIMARY KEY AUTO_INCREMENT,
+    date         DATE NOT NULL,
+    bundleID     INT  NOT NULL,
+    travelerID   INT,
+    FOREIGN KEY (bundleID) REFERENCES Bundle (bundleID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    FOREIGN KEY (travelerID) REFERENCES Traveler (travelerID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
 
-CREATE TABLE Offer (
-    BundleID INT,
-    ProviderID INT,
-    FOREIGN KEY (BundleID) REFERENCES Bundle(BundleID),
-    FOREIGN KEY (ProviderID) REFERENCES ExperienceProviders(ProviderID),
-    PRIMARY KEY (BundleID, ProviderID)
+CREATE TABLE Offer
+(
+    bundleID   INT,
+    providerID INT,
+    FOREIGN KEY (bundleID) REFERENCES Bundle (bundleID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    FOREIGN KEY (providerID) REFERENCES ExperienceProviders (providerID)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    PRIMARY KEY (bundleID, providerID)
 );
 
 -- Sample data for Owner table
