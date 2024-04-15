@@ -4,10 +4,10 @@ from src import db
 
 
 
-properties = Blueprint('properties', __name__)
+owners = Blueprint('owners', __name__)
 
 # Get all the properties from the database
-@properties.route('/properties', methods=['GET'])
+@owners.route('/properties', methods=['GET'])
 def get_properties():
     cursor = db.get_db().cursor()
     cursor.execute('SELECT * FROM Property')
@@ -22,8 +22,8 @@ def get_properties():
     return the_response
 
 # Get property detail for property with particular propertyID
-@properties.route('/properties/<propertyID>', methods=['GET'])
-def get_customer(propertyID):
+@owners.route('/properties/<propertyID>', methods=['GET'])
+def get_property(propertyID):
     cursor = db.get_db().cursor()
     cursor.execute('select * from Property where propertyID = {0}'.format(propertyID))
     row_headers = [x[0] for x in cursor.description]
