@@ -167,13 +167,13 @@ def add_new_property():
     query = 'insert into Property (address, city, region, country, type, description, title, price, ownerID) values ("'
     query += address + '", "'
     query += city + '", "'
-    query += region + '", '
+    query += region + '", "'
     query += country + '", "'
     query += type + '", "'
-    query += description + '", '
+    query += description + '", "'
     query += title + '", '
-    query += str(price) + '", '
-    query += ownerID + ')'
+    query += str(price) + ', '
+    query += str(ownerID) + ')'
     current_app.logger.info(query)
 
     # executing and committing the insert statement 
