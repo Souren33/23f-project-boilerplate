@@ -215,7 +215,7 @@ def add_new_msg():
     ownerID = the_data['ownerID']
 
     # Constructing the query
-    query = 'insert into Stay_At (content, dateSent, travelerID, ownerID) values ("'
+    query = 'insert into Stay_Messages (content, dateSent, travelerID, ownerID) values ("'
     query += content + '", "'
     query += str(dateSent) + '", '
     query += str(travelerID) + ', '
