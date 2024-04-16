@@ -179,6 +179,69 @@ def get_messages_all(travelerID):
     the_response.mimetype = 'application/json'
     return the_response
 
+# retrieve all stays of a traveler
+@travelers.route('/stayats/<travelerID>', methods=['GET'])
+def get_stay_ats(travelerID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from Stay_At where travelerID = {0}'.format(travelerID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# Get all experience providers from the database
+@travelers.route('/experienceproviders', methods=['GET'])
+def get_providers():
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT * FROM ExperienceProviders')
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# Get all bundles from the database
+@travelers.route('/bundles', methods=['GET'])
+def get_bundles():
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT * FROM Bundle')
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# Get all advertisements from the database
+@travelers.route('/advertisements', methods=['GET'])
+def get_ads():
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT * FROM Experience_Ads')
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+
+
+
 
 
 
