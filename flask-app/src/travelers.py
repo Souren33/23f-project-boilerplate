@@ -256,16 +256,73 @@ def add_new_msg():
 
     # extracting the variables
     content = the_data['content']
-    dateSent = the_data['dateSent']
     travelerID = the_data['travelerID']
     ownerID = the_data['ownerID']
 
     # Constructing the query
-    query = 'insert into Stay_Messages (content, dateSent, travelerID, ownerID) values ("'
-    query += content + '", "'
-    query += str(dateSent) + '", '
+    query = 'insert into Stay_Messages (content, travelerID, ownerID) values ("'
+    query += content + '", '
     query += str(travelerID) + ', '
     query += str(ownerID) + ')'
+    current_app.logger.info(query)
+
+    # executing and committing the insert statement 
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    return 'Success!'
+
+# create a new stay
+@travelers.route('/createstay', methods=['POST'])
+def add_new_stay():
+    
+    # collecting data from the request object 
+    the_data = request.json
+    current_app.logger.info(the_data)
+
+    #extracting the variable
+    startDate = the_data['startDate']
+    endDate = the_data['endDate']
+    travelerID = the_data['travelerID']
+    propertyID = the_data['propertyID']
+    
+
+    # Constructing the query
+    query = 'insert into Stay_At (startDate, endDate, travelerID, propertyID) values ("'
+    query += str(startDate) + '", "'
+    query += str(endDate) + '", '
+    query += str(travelerID) + ', '
+    query += str(propertyID) + ')'
+    current_app.logger.info(query)
+
+    # executing and committing the insert statement 
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    return 'Success!'
+
+
+# create an experience review
+@travelers.route('/createexpreview', methods=['POST'])
+def add_exp_review():
+    
+    # collecting data from the request object 
+    the_data = request.json
+    current_app.logger.info(the_data)
+
+    #extracting the variable
+    content = the_data['content']
+    travelerID = the_data['travelerID']
+    providerID = the_data['providerID']
+    
+
+    # Constructing the query
+    query = 'insert into Experience_Reviews (content, travelerID, providerID) values ("'
+    query += content + '", '
+    query += str(travelerID) + ', '
+    query += str(providerID) + ')'
     current_app.logger.info(query)
 
     # executing and committing the insert statement 

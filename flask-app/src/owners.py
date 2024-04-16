@@ -211,14 +211,12 @@ def add_new_msg():
 
     # extracting the variables
     content = the_data['content']
-    dateSent = the_data['dateSent']
     travelerID = the_data['travelerID']
     ownerID = the_data['ownerID']
 
     # Constructing the query
-    query = 'insert into Stay_Messages (content, dateSent, travelerID, ownerID) values ("'
-    query += content + '", "'
-    query += str(dateSent) + '", '
+    query = 'insert into Stay_Messages (content, travelerID, ownerID) values ("'
+    query += content + '", '
     query += str(travelerID) + ', '
     query += str(ownerID) + ')'
     current_app.logger.info(query)
