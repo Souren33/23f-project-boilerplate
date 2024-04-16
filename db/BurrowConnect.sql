@@ -51,7 +51,7 @@ CREATE TABLE Property
 CREATE TABLE PropertyReview
 (
     reviewID   INT PRIMARY KEY AUTO_INCREMENT,
-    reviewDate DATE          NOT NULL,
+    reviewDate DATETIME DEFAULT CURRENT_TIMESTAMP,        
     content    VARCHAR(1000) NOT NULL,
     travelerID INT           NOT NULL,
     propertyID INT           NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE Stay_Messages
 (
     messID     INT PRIMARY KEY AUTO_INCREMENT,
     content    TEXT NOT NULL,
-    dateSent   DATE NOT NULL,
+    dateSent   DATETIME DEFAULT CURRENT_TIMESTAMP,
     travelerID INT,
     ownerID    INT  NOT NULL,
     FOREIGN KEY (ownerID) REFERENCES Owner (ownerID)
@@ -109,7 +109,7 @@ CREATE TABLE Experience_Reviews
 (
     reviewID   INT PRIMARY KEY AUTO_INCREMENT,
     content    VARCHAR(1000) NOT NULL,
-    date       DATE          NOT NULL,
+    reviewDate DATETIME DEFAULT CURRENT_TIMESTAMP,
     providerID INT,
     travelerID INT,
     FOREIGN KEY (providerID) REFERENCES ExperienceProviders (providerID)
@@ -260,20 +260,20 @@ VALUES ('101 Park Ave', 'Metropolis', 'Metroregion', 'USA', 'Apartment',
 
 
 -- Sample data for PropertyReview table
-INSERT INTO PropertyReview (reviewDate, content, travelerID, propertyID)
-VALUES ('2023-07-20', 'Great property, excellent location!', 1, 1),
-       ('2023-09-05', 'Enjoyed our stay, would recommend to others.', 3, 3),
-       ('2023-10-30', 'Property was clean and well-maintained.', 2, 2),
-       ('2023-11-25', 'Had a wonderful experience, will definitely return.', 4, 4),
-       ('2023-12-10', 'Overall, a pleasant stay at this property.', 5, 5);
+INSERT INTO PropertyReview (content, travelerID, propertyID)
+VALUES ('Great property, excellent location!', 1, 1),
+       ('Enjoyed our stay, would recommend to others.', 3, 3),
+       ('Property was clean and well-maintained.', 2, 2),
+       ('Had a wonderful experience, will definitely return.', 4, 4),
+       ('Overall, a pleasant stay at this property.', 5, 5);
 
 -- Sample data for Stay_Messages table
 INSERT INTO Stay_Messages (content, dateSent, travelerID, ownerID)
-VALUES ('Hi, we''ve arrived at the property. Everything looks good!', '2023-07-25', 1, 1),
-       ('Could you please provide directions to the property?', '2023-08-05', 3, 2),
-       ('We''re interested in booking your property for next month.', '2023-09-10', 2, 3),
-       ('Is early check-in available for our stay?', '2023-10-05', 4, 4),
-       ('Thank you for hosting us, we had a great time!', '2023-11-30', 5, 5);
+VALUES ('Hi, we''ve arrived at the property. Everything looks good!', 1, 1),
+       ('Could you please provide directions to the property?', 3, 2),
+       ('We''re interested in booking your property for next month.', 2, 3),
+       ('Is early check-in available for our stay?', 4, 4),
+       ('Thank you for hosting us, we had a great time!', 5, 5);
 
 -- Sample data for Stay_At table
 INSERT INTO Stay_At (startDate, endDate, travelerID, propertyID)
@@ -321,12 +321,12 @@ VALUES ('Gold', 1, 1),
        ('Gold', 5, 5);
 
 -- Sample data for Experience_Reviews table
-INSERT INTO Experience_Reviews (content, date, providerID, travelerID)
-VALUES ('Had an amazing adventure with Adventure Co.!', '2023-07-30', 1, 1),
-       ('Enjoyed the cultural tour, highly recommended!', '2023-08-10', 2, 2),
-       ('Extreme Sports Ltd. provided an unforgettable experience!', '2023-09-20', 3, 3),
-       ('Nature Explorers tour was fantastic, will definitely do it again.', '2023-10-15', 4, 4),
-       ('Foodie Adventures offered delicious food and great company!', '2023-11-05', 5, 5);
+INSERT INTO Experience_Reviews (content, providerID, travelerID)
+VALUES ('Had an amazing adventure with Adventure Co.!', 1, 1),
+       ('Enjoyed the cultural tour, highly recommended!', 2, 2),
+       ('Extreme Sports Ltd. provided an unforgettable experience!', 3, 3),
+       ('Nature Explorers tour was fantastic, will definitely do it again.', 4, 4),
+       ('Foodie Adventures offered delicious food and great company!', 5, 5);
 
 -- Sample data for Bundle table
 INSERT INTO Bundle (description, type, title, price)
