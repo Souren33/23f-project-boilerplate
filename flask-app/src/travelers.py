@@ -86,10 +86,89 @@ def get_prop_reviews(propertyID):
 
 
 # retrieve all reviews on an experience provider
-@travelers.route('/experiencereviews/<providerID>', methods=['GET'])
+@travelers.route('/provexperiencereviews/<providerID>', methods=['GET'])
 def get_exp_reviews(providerID):
     cursor = db.get_db().cursor()
     cursor.execute('select * from Experience_Reviews where providerID = {0}'.format(providerID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+
+# view the specific information of a bundle
+@travelers.route('/bundles/<bundleID>', methods=['GET'])
+def get_bundle(bundleID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from Bundle where bundleID = {0}'.format(bundleID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+
+# retrieve information of a specific experience
+@travelers.route('/experiences/<bundleID>/<travelerID>', methods=['GET'])
+def get_experience(bundleID, travelerID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from Experience where bundleID = {0} AND travelerID = {1}'.format(bundleID, travelerID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+
+# view all a travelers experience reviews
+@travelers.route('/travexperiencereviews/<travelerID>', methods=['GET'])
+def get_trav_exp_reviews(travelerID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from Experience_Reviews where travelerID = {0}'.format(travelerID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+
+# view all a travelers property reviews
+@travelers.route('/travpropertyreviews/<travelerID>', methods=['GET'])
+def get_trav_prop_reviews(travelerID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from PropertyReview where travelerID = {0}'.format(travelerID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# retrieve all messages of a traveler
+@travelers.route('/staymessages/<travelerID>', methods=['GET'])
+def get_messages_all(travelerID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from Stay_Messages where travelerID = {0}'.format(travelerID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
