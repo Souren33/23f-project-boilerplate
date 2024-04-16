@@ -68,21 +68,6 @@ def get_reviews(propertyID):
     the_response.mimetype = 'application/json'
     return the_response
 
-# view information of owner
-@owners.route('/owners/<ownerID>', methods=['GET'])
-def get_owner(ownerID):
-    cursor = db.get_db().cursor()
-    cursor.execute('select * from Owner where ownerID = {0}'.format(ownerID))
-    row_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
-
 # retrieve messages between an owner and traveler
 @owners.route('/staymessages/<ownerID>/<travelerID>', methods=['GET'])
 def get_messages_between(ownerID, travelerID):
@@ -244,7 +229,7 @@ def add_new_msg():
     
     return 'Success!'
 
-
+# update a property
 @owners.route('/updateproperty', methods=['PUT'])
 def update_property():
 
@@ -279,7 +264,6 @@ def update_property():
 # delete an owners property
 @owners.route('/deleteproperty', methods=['DELETE'])
 def delete_property():
-    
     # collect data from request object
     the_data = request.json
     current_app.logger.info(the_data)
