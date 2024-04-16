@@ -439,3 +439,52 @@ def update_prop_review():
     db.get_db().commit()
     
     return 'Review updated!'
+
+
+# DELETE routes
+# delete an experience review
+@travelers.route('/deleteexpreview', methods=['DELETE'])
+def delete_exp_review():
+    
+    # collect data from request object
+    the_data = request.json
+    current_app.logger.info(the_data)
+    
+    # extracting the variable
+    providerID = the_data['providerID']
+    travelerID = the_data['travelerID']
+    
+    # construct query
+    query = 'DELETE FROM Experience_Reviews WHERE providerID = %s AND travelerID = %s'
+    data = (providerID, travelerID)
+    
+    # execute and commit
+    cursor = db.get_db().cursor()
+    cursor.execute(query, data)
+    db.get_db().commit()
+    
+    return 'Review deleted successfully!'
+
+
+# delete a property review
+@travelers.route('/deletepropreview', methods=['DELETE'])
+def delete_prop_review():
+    
+    # collect data from request object
+    the_data = request.json
+    current_app.logger.info(the_data)
+    
+    # extracting the variable
+    propertyID = the_data['propertyID']
+    travelerID = the_data['travelerID']
+    
+    # construct query
+    query = 'DELETE FROM PropertyReview WHERE propertyID = %s AND travelerID = %s'
+    data = (propertyID, travelerID)
+    
+    # execute and commit
+    cursor = db.get_db().cursor()
+    cursor.execute(query, data)
+    db.get_db().commit()
+    
+    return 'Review deleted successfully!'
