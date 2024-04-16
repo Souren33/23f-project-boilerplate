@@ -388,3 +388,54 @@ def add_new_exp_occ():
     db.get_db().commit()
     
     return 'Success!'
+
+
+# PUT routes
+# update an experience review
+@travelers.route('/updateexpreview', methods=['PUT'])
+def update_exp_review():
+   
+    # collect data from request object
+    the_data = request.json
+    current_app.logger.info(the_data)
+    
+    # extracting the variables
+    content = the_data['content']
+    travelerID = the_data['travelerID']
+    providerID = the_data['providerID']
+    
+    # construct query
+    query = 'UPDATE Experience_Reviews SET content = %s WHERE travelerID = %s AND providerID = %s'
+    data = (content, travelerID, providerID)
+    
+    # execute and commit
+    cursor = db.get_db().cursor()
+    cursor.execute(query, data)
+    db.get_db().commit()
+    
+    return 'Review updated!'
+
+
+# update a property review
+@travelers.route('/updatepropreview', methods=['PUT'])
+def update_prop_review():
+   
+    # collect data from request object
+    the_data = request.json
+    current_app.logger.info(the_data)
+    
+    # extracting the variables
+    content = the_data['content']
+    travelerID = the_data['travelerID']
+    propertyID = the_data['propertyID']
+    
+    # construct query
+    query = 'UPDATE PropertyReview SET content = %s WHERE travelerID = %s AND propertyID = %s'
+    data = (content, travelerID, propertyID)
+    
+    # execute and commit
+    cursor = db.get_db().cursor()
+    cursor.execute(query, data)
+    db.get_db().commit()
+    
+    return 'Review updated!'
