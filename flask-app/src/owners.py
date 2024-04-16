@@ -182,3 +182,118 @@ def add_new_property():
     db.get_db().commit()
     
     return 'Success!'
+
+
+# create a new stay
+@owners.route('/createstay', methods=['POST'])
+def add_new_stay():
+    
+    # collecting data from the request object 
+    the_data = request.json
+    current_app.logger.info(the_data)
+
+    #extracting the variable
+    startDate = the_data['startDate']
+    endDate = the_data['endDate']
+    travelerID = the_data['travelerID']
+    propertyID = the_data['propertyID']
+    
+
+    # Constructing the query
+    query = 'insert into Stay_At (startDate, endDate, travelerID, propertyID) values ("'
+    query += str(startDate) + '", "'
+    query += str(endDate) + '", '
+    query += str(travelerID) + ', '
+    query += str(propertyID) + ')'
+    current_app.logger.info(query)
+
+    # executing and committing the insert statement 
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    return 'Success!'
+
+
+# create a new message with a traveler
+@owners.route('/createmsg', methods=['POST'])
+def add_new_msg():
+    
+    # collecting data from the request object 
+    the_data = request.json
+    current_app.logger.info(the_data)
+
+    # extracting the variables
+    content = the_data['content']
+    dateSent = the_data['dateSent']
+    travelerID = the_data['travelerID']
+    ownerID = the_data['ownerID']
+
+    # Constructing the query
+    query = 'insert into Stay_At (content, dateSent, travelerID, ownerID) values ("'
+    query += content + '", "'
+    query += str(dateSent) + '", '
+    query += str(travelerID) + ', '
+    query += str(ownerID) + ')'
+    current_app.logger.info(query)
+
+    # executing and committing the insert statement 
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    return 'Success!'
+
+
+@owners.route('/updateproperty', methods=['PUT'])
+def update_property():
+
+    # collect data from request object
+    the_data = request.json
+    current_app.logger.info(the_data)
+
+
+    #extracting the variable
+    address = the_data['address']
+    city = the_data['region']
+    region = the_data['region']
+    country = the_data['country']
+    type = the_data['type']
+    description = the_data['description']
+    title = the_data['title']
+    price = the_data['price']
+    ownerID = the_data['ownerID']
+    propertyID = the_data['propertyID']
+
+    # construct query
+    query = 'UPDATE Property SET address = %s, city = %s, region = %s, country = %s, type = %s, description = %s, title = %s, price = %s, ownerID = %s WHERE propertyID = %s'
+    data = (address, city, region, country, type, description, title, price, ownerID, propertyID)
+
+    # execute and commit
+    cursor = db.get_db().cursor()
+    r = cursor.execute(query, data)
+    db.get_db().commit()
+
+    return 'property updated!'
+
+# delete an owners property
+@owners.route('/deleteproperty', methods=['DELETE'])
+def delete_property():
+    
+    # collect data from request object
+    the_data = request.json
+    current_app.logger.info(the_data)
+    
+    # extracting the variable
+    propertyID = the_data['propertyID']
+    
+    # construct query
+    query = 'DELETE FROM Property WHERE propertyID = %s'
+    
+    # execute and commit
+    cursor = db.get_db().cursor()
+    cursor.execute(query, (propertyID,))
+    db.get_db().commit()
+    
+    return 'Property deleted successfully!'
+
