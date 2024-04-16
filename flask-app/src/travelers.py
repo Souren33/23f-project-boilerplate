@@ -331,3 +331,60 @@ def add_exp_review():
     db.get_db().commit()
     
     return 'Success!'
+
+
+# create a property review
+@travelers.route('/createpropreview', methods=['POST'])
+def add_prop_review():
+    
+    # collecting data from the request object 
+    the_data = request.json
+    current_app.logger.info(the_data)
+
+    #extracting the variable
+    content = the_data['content']
+    travelerID = the_data['travelerID']
+    propertyID = the_data['propertyID']
+    
+
+    # Constructing the query
+    query = 'insert into PropertyReview (content, travelerID, propertyID) values ("'
+    query += content + '", '
+    query += str(travelerID) + ', '
+    query += str(propertyID) + ')'
+    current_app.logger.info(query)
+
+    # executing and committing the insert statement 
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    return 'Success!'
+
+
+# create a new experience occurence
+@travelers.route('/createexpoccurence', methods=['POST'])
+def add_new_exp_occ():
+    
+    # collecting data from the request object 
+    the_data = request.json
+    current_app.logger.info(the_data)
+
+    #extracting the variable
+    date = the_data['date']
+    travelerID = the_data['travelerID']
+    bundleID = the_data['bundleID']
+    
+
+    # Constructing the query
+    query = 'insert into Experience (date, travelerID, bundleID) values ("'
+    query += str(date) + '", '
+    query += str(travelerID) + ', '
+    query += str(bundleID) + ')'
+
+    # executing and committing the insert statement 
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    return 'Success!'
