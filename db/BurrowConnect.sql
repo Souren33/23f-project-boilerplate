@@ -268,12 +268,13 @@ VALUES ('Great property, excellent location!', 1, 1),
        ('Overall, a pleasant stay at this property.', 5, 5);
 
 -- Sample data for Stay_Messages table
-INSERT INTO Stay_Messages (content, dateSent, travelerID, ownerID)
+INSERT INTO Stay_Messages (content, travelerID, ownerID)
 VALUES ('Hi, we''ve arrived at the property. Everything looks good!', 1, 1),
        ('Could you please provide directions to the property?', 3, 2),
        ('We''re interested in booking your property for next month.', 2, 3),
        ('Is early check-in available for our stay?', 4, 4),
        ('Thank you for hosting us, we had a great time!', 5, 5);
+
 
 -- Sample data for Stay_At table
 INSERT INTO Stay_At (startDate, endDate, travelerID, propertyID)
@@ -282,6 +283,7 @@ VALUES ('2023-07-20', '2023-07-25', 1, 1),
        ('2023-09-05', '2023-09-10', 2, 3),
        ('2023-10-10', '2023-10-15', 4, 4),
        ('2023-11-15', '2023-11-20', 5, 5);
+
 
 -- Sample data for ExperienceProviders table
 INSERT INTO ExperienceProviders (companyName, address, city, region, country, email, description)

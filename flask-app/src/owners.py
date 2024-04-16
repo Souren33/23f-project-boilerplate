@@ -87,7 +87,8 @@ def get_messages_between(ownerID, travelerID):
 @owners.route('/staymessages/<ownerID>', methods=['GET'])
 def get_messages_all(ownerID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from Stay_Messages where ownerID = {0}'.format(ownerID))
+    query = 'select * from Stay_Messages where ownerID = {0}'.format(ownerID)   
+    cursor.execute(query)
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -102,7 +103,7 @@ def get_messages_all(ownerID):
 @owners.route('/stayats/<propertyID>', methods=['GET'])
 def get_stay_ats(propertyID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from Stay_At where propertyID = {0}'.format(propertyID))
+    cursor.execute(f'select * from Stay_At where propertyID = {propertyID}'.format(propertyID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
