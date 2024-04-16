@@ -7,7 +7,7 @@ from src import db
 owners = Blueprint('owners', __name__)
 
 
-
+# GET routes
 # retrieve all properties of an owner
 @owners.route('/properties/<ownerID>', methods=['GET'])
 def get_properties(ownerID):
@@ -129,6 +129,7 @@ def get_stay_at(propertyID, travelerID):
     return the_response
 
 
+# POST routes
 # create a new property
 @owners.route('/createproperty', methods=['POST'])
 def add_new_property():
@@ -229,6 +230,8 @@ def add_new_msg():
     
     return 'Success!'
 
+
+# PUT routes
 # update a property
 @owners.route('/updateproperty', methods=['PUT'])
 def update_property():
@@ -261,6 +264,7 @@ def update_property():
 
     return 'property updated!'
 
+# DELETE routes
 # delete an owners property
 @owners.route('/deleteproperty', methods=['DELETE'])
 def delete_property():
