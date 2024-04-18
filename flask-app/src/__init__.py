@@ -38,6 +38,7 @@ def create_app():
     from src.owners import owners   
     from src.travelers import travelers
     from src.advertisers import advertisers
+    from src.experienceproviders import experienceproviders
 
     # Register the routes from each Blueprint with the app object
     # and give a url prefix to each
@@ -46,6 +47,7 @@ def create_app():
     app.register_blueprint(owners, url_prefix='/o')
     app.register_blueprint(travelers, url_prefix='/t')
     app.register_blueprint(advertisers, url_prefix='/a')
+    app.register_blueprint(experienceproviders, url_prefix='/e')
 
     # Don't forget to return the app object
     return app
