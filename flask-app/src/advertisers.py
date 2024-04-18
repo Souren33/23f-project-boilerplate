@@ -7,12 +7,26 @@ from src import db
 advertisers = Blueprint('advertisers', __name__)
 
 
+@advertisers.route('/advertisersinfo/<advertiserID>', methods=['GET'])
+def get_advertiserinfo(advertiserID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from Advertiser where advertiserID = {0}'.format(advertiserID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
 # GET routes
 # View the liaison information for a specifc advertiser
 @advertisers.route('/AdLiaisons/<liaisonID>', methods=['GET'])
 def get_liason(liaisonID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from Advertiser A JOIN AdLiaison AD ON A.liaisonID = AD.liaisonID where liasonID = {0}'.format(liasonID))
+    cursor.execute('select * from AdLiaison where liaisonID = {0}'.format(liaisonID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -46,7 +60,7 @@ def get_traveler_data(advertiserID):
 @advertisers.route('/PropertyData/<advertiserID>', methods=['GET'])
 def get_property_data(advertiserID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from TravelData TD JOIN Property P ON TD.travelerID = P.propertyID where advertiserID = {0}'.format(liasonID))
+    cursor.execute('select * from TravelData TD JOIN Property P ON TD.travelerID = P.propertyID where advertiserID = {0}'.format(advertiserID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -80,7 +94,7 @@ def get_property(propertyID):
 @advertisers.route('/ExperienceAds/<advertiserID>', methods=['GET'])
 def get_ad_info(advertiserID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from Experience_Ads where advertiserID = {0}'.format(liasonID))
+    cursor.execute('select * from Experience_Ads where advertiserID = {0}'.format(advertiserID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
