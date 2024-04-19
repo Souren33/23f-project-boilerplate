@@ -20,8 +20,10 @@ This repo contains a boilerplate setup for spinning up 3 Docker containers:
 
 **To open Appsmith, navigate to localhost:8080 in your browser**
 
-## Description of UI
-Our user interface has been built out for three personas: Owners, Experience Providers, and Advertisers. Starting at the landing/login page, one can navigate to their personas respective pages, each tailored to the use cases of each. Owners can manage their properties as well as create booking and communicate with customers. Experience Providers can manage their bundle offerings, create and view advertisements, as well as manage experience bookings with customers. Advertisers can view valuable information on the platform, represented through their BurrowConnect liaison. Advertisers on the platform can also view dashboarded information on customer data and property data, as well as all advertisements they have posted on the website. 
+## Description of our Project
+Burrow Connect is an all-in-one vacation planning platform that offers a seamless and comprehensive experience for travelers, hosts, and local businesses. The platform enables travelers to search, compare, and book affordable accommodations and unique, localized experiences while providing hosts and experience providers with the tools they need to effectively manage their offerings, connect with customers, and grow their businesses. With a focus on personalization, communication, and collaboration, Burrow Connect aims to create a thriving ecosystem where travelers can discover and book authentic, memorable experiences, hosts can optimize their rental property performance, and local businesses can showcase their offerings to a targeted audience of travel enthusiasts. The platform also incorporates advertisers, ensuring that properties, products, and services are promoted to the right audience, ultimately fostering a vibrant and sustainable travel community.
+
+Our specific app dives into the personas of Owners, Experience Providers, and Advertisers, as they all provide interactions from different angles with the travelers of BurrowConnect.
 
 
 
