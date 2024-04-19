@@ -7,7 +7,17 @@ from src import db
 
 
 
+
+
+
+
+
+
 advertisers = Blueprint('advertisers', __name__)
+
+
+
+
 
 
 
@@ -27,12 +37,14 @@ def get_advertiserinfo(advertiserID):
     return the_response
 
 
+
+
 # GET routes
 # View the liaison information for a specifc advertiser
 @advertisers.route('/AdLiaisons/<adID>', methods=['GET'])
 def get_liason(adID):
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT * FROM AdLiaison AD JOIN Advertiser A ON AD.liaisonID = A.liaisonID WHERE AD.liaisonID = {0}'.format(adID))
+    cursor.execute('SELECT * FROM AdLiaison AD JOIN Advertiser A ON AD.liaisonID = A.liaisonID WHERE A.advertiserID = {0}'.format(adID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -42,6 +54,10 @@ def get_liason(adID):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
+
+
+
+
 
 
 
@@ -60,6 +76,14 @@ def get_traveler_data(advertiserID):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
+
+
+
+
+
+
+
+
 
 
 
@@ -88,6 +112,12 @@ def get_property_data(advertiserID):
 
 
 
+
+
+
+
+
+
 #views all expereince ads by a specific advertiser
 @advertisers.route('/ExperienceAds/<advertiserID>', methods=['GET'])
 def get_ad_info(advertiserID):
@@ -102,4 +132,10 @@ def get_ad_info(advertiserID):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
+
+
+
+
+
+
 
