@@ -324,17 +324,19 @@ def delete_offer():
     current_app.logger.info(the_data)
     
     # extracting the variable
-    bundleID = the_data['bundleID']
-    providerID = the_data['providerID']
+    bundleID = str(the_data['bundleID'])
+    providerID = str(the_data['providerID'])
     
     # construct query
-    query = 'DELETE FROM Bundle WHERE bundleID = ' + bundleID
-    query += ' AND providerID = ' + providerID
-    
+    query = 'DELETE FROM Offer WHERE bundleID = {0}'.format(bundleID)
+    query += ' AND providerID = {0}'.format(providerID)
+
     # execute and commit
     cursor = db.get_db().cursor()
-    cursor.execute(query, (bundleID,))
+    cursor.execute(query)
+
     db.get_db().commit()
+
     
     return 'Offer deleted successfully!'
 
