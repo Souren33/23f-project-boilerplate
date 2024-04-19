@@ -1,7 +1,7 @@
 # BurrowConnect Project
 Contributors: Benjamin Pierce Souren Prakash, Atharva Nilapwar, Mackinley Morgan, Abhir Naik
 
-**Video Link:**
+**Video Link:** https://youtu.be/NkcyQMjRQBI
 
 This repo contains a boilerplate setup for spinning up 3 Docker containers: 
 1. A MySQL 8 container for obvious reasons
