@@ -1,5 +1,7 @@
 # BurrowConnect Project
-Team Members: Souren Prakash, Atharva Nilapwar, Benjamin Pierce, Mackinley Morgan, Abhir Naik
+Contributors: Benjamin Pierce Souren Prakash, Atharva Nilapwar, Mackinley Morgan, Abhir Naik
+
+**Video Link:**
 
 This repo contains a boilerplate setup for spinning up 3 Docker containers: 
 1. A MySQL 8 container for obvious reasons
@@ -19,16 +21,7 @@ This repo contains a boilerplate setup for spinning up 3 Docker containers:
 **To open Appsmith, navigate to localhost:8080 in your browser**
 
 ## Description of UI
-- 3 personas: Advertiser, Experience Provider, and Owner
-
-
--------------
-Project Repo (make sure it is public)
-Update the ReadME file to describe your project, any information the user needs to build/start the containers (such as adding the secrets passwords files), etc.  Include each team member’s name somewhere in the README. 
-We should be able to run docker compose up, and all services should start, sql files should be executed, etc. 
-Appsmith Repo (make sure it is public).  Update the README with a description of your UI, any information the user needs to know to access it, etc. 
-include 5-8  minute video recorded by your team
--------------------
+Our user interface has been built out for three personas: Owners, Experience Providers, and Advertisers. Starting at the landing/login page, one can navigate to their personas respective pages, each tailored to the use cases of each. Owners can manage their properties as well as create booking and communicate with customers. Experience Providers can manage their bundle offerings, create and view advertisements, as well as manage experience bookings with customers. Advertisers can view valuable information on the platform, represented through their BurrowConnect liaison. Advertisers on the platform can also view dashboarded information on customer data and property data, as well as all advertisements they have posted on the website. 
 
 
 
