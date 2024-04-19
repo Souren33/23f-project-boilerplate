@@ -1,5 +1,7 @@
 CREATE DATABASE IF NOT EXISTS BurrowConnect;
 
+-- drop database BurrowConnect;
+
 grant all privileges on BurrowConnect.* to 'webapp'@'%';
 flush privileges;
 
@@ -51,7 +53,7 @@ CREATE TABLE Property
 CREATE TABLE PropertyReview
 (
     reviewID   INT PRIMARY KEY AUTO_INCREMENT,
-    reviewDate DATETIME DEFAULT CURRENT_TIMESTAMP,        
+    reviewDate DATETIME DEFAULT CURRENT_TIMESTAMP,
     content    VARCHAR(1000) NOT NULL,
     travelerID INT           NOT NULL,
     propertyID INT           NOT NULL,
@@ -96,7 +98,7 @@ CREATE TABLE Stay_At
 CREATE TABLE ExperienceProviders
 (
     providerID  INT PRIMARY KEY AUTO_INCREMENT,
-    companyName VARCHAR(500) UNIQUE,
+    companyName VARCHAR(500),
     address     VARCHAR(250)  NOT NULL,
     city        VARCHAR(50)   NOT NULL,
     region      VARCHAR(50)   NOT NULL,
@@ -347,9 +349,9 @@ INSERT INTO Property (`address`, city, region, country, `type`, `description`, t
 ('2624 Passionfruit St', 'Virginia Beach', 'VA', 'USA', 'Apartment', 'Coastal retreat with nautical-inspired decor and access to a private beach, perfect for a seaside getaway.', 'Coastal Retreat with Private Beach', 390, 45),
 ('2725 Persimmon St', 'Colorado Springs', 'CO', 'USA', 'House', 'Mountain retreat with log cabin charm and breathtaking views of Pikes Peak.', 'Mountain Retreat with Log Cabin Charm', 500, 46),
 ('2826 Raspberry St', 'Raleigh', 'NC', 'USA', 'Condo', 'Urban condo with city views and access to a rooftop pool and lounge area, located in a bustling downtown neighborhood.', 'Urban Condo with City Views', 420, 47),
-('2927 Blackberry St', 'Oklahoma City', 'OK', 'USA', 'House', 'Southern-style house with a wraparound porch and a sprawling lawn, perfect for hosting summer cookouts.', 'Southern-style House with Wraparound Porch', 440, 48),
-('3028 Pomegranate St', 'Tulsa', 'OK', 'USA', 'Apartment', 'Downtown loft apartment with exposed brick walls and high ceilings, offering a trendy urban living experience.', 'Downtown Loft Apartment with Exposed Brick', 400, 49),
-('3129 Papaya St', 'Omaha', 'NE', 'USA', 'House', 'Colonial Revival house with classic architectural details and a grand staircase, located in a historic neighborhood.', 'Colonial Revival House with Grand Staircase', 460, 50);
+('2927 Blackberry St', 'Oklahoma City', 'OK', 'USA', 'House', 'Southern-style house with a wraparound porch and a sprawling lawn, perfect for hosting summer cookouts.', 'Southern-style House with Wraparound Porch', 440, 4),
+('3028 Pomegranate St', 'Tulsa', 'OK', 'USA', 'Apartment', 'Downtown loft apartment with exposed brick walls and high ceilings, offering a trendy urban living experience.', 'Downtown Loft Apartment with Exposed Brick', 400, 2),
+('3129 Papaya St', 'Omaha', 'NE', 'USA', 'House', 'Colonial Revival house with classic architectural details and a grand staircase, located in a historic neighborhood.', 'Colonial Revival House with Grand Staircase', 460, 5);
 
 INSERT INTO PropertyReview (reviewDate, content, travelerID, propertyID) VALUES
 ('2024-04-01 12:00:00', 'Great location and amenities!', 1, 1),
@@ -382,26 +384,16 @@ INSERT INTO PropertyReview (reviewDate, content, travelerID, propertyID) VALUES
 ('2024-04-28 15:00:00', 'Luxury condo with panoramic city views.', 28, 28),
 ('2024-04-29 16:00:00', 'Historic Victorian house with period charm.', 29, 29),
 ('2024-04-30 17:00:00', 'Sleek apartment in a vibrant arts district.', 30, 30),
-('2024-05-01 18:00:00', 'Quaint cottage with a cozy fireplace.', 31, 31),
-('2024-05-02 19:00:00', 'Chic condo with stylish interiors.', 32, 32),
-('2024-05-03 20:00:00', 'Urban loft apartment with industrial-chic decor.', 33, 33),
-('2024-05-04 21:00:00', 'Modernist house with minimalist interiors.', 34, 34),
-('2024-05-05 22:00:00', 'Southwestern-style condo with mountain views.', 35, 35),
-('2024-05-06 23:00:00', 'Ranch-style house with outdoor patio.', 36, 36),
-('2024-05-07 00:00:00', 'Chic apartment in a revitalized district.', 37, 37),
-('2024-05-08 01:00:00', 'Craftsman-style house with a front porch.', 38, 38),
-('2024-05-09 02:00:00', 'Mediterranean-style condo with courtyard.', 39, 39),
-('2024-05-10 03:00:00', 'Spanish Colonial Revival house with tilework.', 40, 40),
-('2024-05-11 04:00:00', 'Modern apartment with rooftop terrace.', 41, 41),
-('2024-05-12 05:00:00', 'Victorian-era house with ornate details.', 42, 42),
-('2024-05-13 06:00:00', 'Beachfront condo with ocean views.', 43, 43),
-('2024-05-14 07:00:00', 'Desert oasis with pool and landscaping.', 44, 44),
-('2024-05-15 08:00:00', 'Coastal retreat with private beach access.', 45, 45),
-('2024-05-16 09:00:00', 'Mountain retreat with log cabin charm.', 46, 46),
-('2024-05-17 10:00:00', 'Urban condo with rooftop pool.', 47, 47),
-('2024-05-18 11:00:00', 'Southern-style house with wraparound porch.', 48, 48),
-('2024-05-19 12:00:00', 'Downtown loft apartment with exposed brick.', 49, 49),
-('2024-05-20 13:00:00', 'Colonial Revival house with grand staircase.', 50, 50);
+('2024-05-01 18:00:00', 'Quaint cottage with a cozy fireplace.', 1, 31),
+('2024-05-02 19:00:00', 'Chic condo with stylish interiors.', 2, 32),
+('2024-05-03 20:00:00', 'Urban loft apartment with industrial-chic decor.', 3, 33),
+('2024-05-04 21:00:00', 'Modernist house with minimalist interiors.', 4, 34),
+('2024-05-05 22:00:00', 'Southwestern-style condo with mountain views.', 5, 35),
+('2024-05-06 23:00:00', 'Ranch-style house with outdoor patio.', 6, 36),
+('2024-05-07 00:00:00', 'Chic apartment in a revitalized district.', 7, 37),
+('2024-05-08 01:00:00', 'Craftsman-style house with a front porch.', 8, 38),
+('2024-05-09 02:00:00', 'Mediterranean-style condo with courtyard.', 9, 39),
+('2024-05-10 03:00:00', 'Spanish Colonial Revival house with tilework.', 4, 40);
 
 INSERT INTO Stay_Messages (content, dateSent, travelerID, ownerID) VALUES
 ('Hi there! Just confirming my booking dates. Looking forward to staying at your place!', '2024-04-01 12:00:00', 1, 1),
@@ -433,27 +425,7 @@ INSERT INTO Stay_Messages (content, dateSent, travelerID, ownerID) VALUES
 ('Hi there! I have a few specific requirements for my stay. Can we discuss them further?', '2024-04-27 14:00:00', 27, 27),
 ('Hello! I am interested in your property for a wellness retreat. Are there yoga studios or spas nearby?', '2024-04-28 15:00:00', 28, 28),
 ('Hi! I am traveling with children. Do you provide any amenities or activities for kids?', '2024-04-29 16:00:00', 29, 29),
-('Hello! Can you provide information about local grocery stores and markets?', '2024-04-30 17:00:00', 30, 30),
-('Hi there! I am considering your property for a writing retreat. Is it quiet and conducive to creative work?', '2024-05-01 18:00:00', 31, 31),
-('Hello! Do you offer any special packages or discounts for repeat guests?', '2024-05-02 19:00:00', 32, 32),
-('Hi! I am interested in your property for a cooking retreat. Is the kitchen well-equipped?', '2024-05-03 20:00:00', 33, 33),
-('Hello! Can you provide recommendations for outdoor activities or adventures?', '2024-05-04 21:00:00', 34, 34),
-('Hi there! I have a pet allergy. Is your property pet-free?', '2024-05-05 22:00:00', 35, 35),
-('Hello! I am interested in your property for a cultural immersion experience. Can you recommend local museums or cultural sites?', '2024-05-06 23:00:00', 36, 36),
-('Hi! I am considering your property for a relaxation retreat. Are there any nearby spas or wellness centers?', '2024-05-07 00:00:00', 37, 37),
-('Hello! Can you provide information about the safety and security measures at your property?', '2024-05-08 01:00:00', 38, 38),
-('Hi there! I am interested in your property for a digital detox retreat. Is there limited or no internet access?', '2024-05-09 02:00:00', 39, 39),
-('Hello! I am planning a birdwatching trip. Are there any birdwatching spots nearby?', '2024-05-10 03:00:00', 40, 40),
-('Hi! I am interested in your property for a romantic getaway. Can you provide any special touches or amenities?', '2024-05-11 04:00:00', 41, 41),
-('Hello! Do you offer any guided tours or excursions for guests?', '2024-05-12 05:00:00', 42, 42),
-('Hi there! I have some accessibility requirements. Is your property wheelchair-friendly?', '2024-05-13 06:00:00', 43, 43),
-('Hello! I am interested in your property for a fishing trip. Are there any fishing spots nearby?', '2024-05-14 07:00:00', 44, 44),
-('Hi! Can you provide information about the local public transportation system?', '2024-05-15 08:00:00', 45, 45),
-('Hello! I am interested in your property for a wellness retreat. Can you recommend any holistic healing centers or practitioners?', '2024-05-16 09:00:00', 46, 46),
-('Hi! I am considering your property for a spiritual retreat. Is there a quiet space for meditation or reflection?', '2024-05-17 10:00:00', 47, 47),
-('Hello! Do you offer any eco-friendly amenities or initiatives at your property?', '2024-05-18 11:00:00', 48, 48),
-('Hi there! I am interested in your property for a photography retreat. Are there any scenic spots nearby?', '2024-05-19 12:00:00', 49, 49),
-('Hello! Can you provide recommendations for local hiking trails or nature walks?', '2024-05-20 13:00:00', 50, 50);
+('Hello! Can you provide information about local grocery stores and markets?', '2024-04-30 17:00:00', 30, 30);
 
 INSERT INTO Stay_At (startDate, endDate, travelerID, propertyID) VALUES
 ('2024-04-01', '2024-04-05', 1, 1),
@@ -485,27 +457,7 @@ INSERT INTO Stay_At (startDate, endDate, travelerID, propertyID) VALUES
 ('2024-04-27', '2024-05-01', 27, 27),
 ('2024-04-28', '2024-05-02', 28, 28),
 ('2024-04-29', '2024-05-03', 29, 29),
-('2024-04-30', '2024-05-04', 30, 30),
-('2024-05-01', '2024-05-05', 31, 31),
-('2024-05-02', '2024-05-06', 32, 32),
-('2024-05-03', '2024-05-07', 33, 33),
-('2024-05-04', '2024-05-08', 34, 34),
-('2024-05-05', '2024-05-09', 35, 35),
-('2024-05-06', '2024-05-10', 36, 36),
-('2024-05-07', '2024-05-11', 37, 37),
-('2024-05-08', '2024-05-12', 38, 38),
-('2024-05-09', '2024-05-13', 39, 39),
-('2024-05-10', '2024-05-14', 40, 40),
-('2024-05-11', '2024-05-15', 41, 41),
-('2024-05-12', '2024-05-16', 42, 42),
-('2024-05-13', '2024-05-17', 43, 43),
-('2024-05-14', '2024-05-18', 44, 44),
-('2024-05-15', '2024-05-19', 45, 45),
-('2024-05-16', '2024-05-20', 46, 46),
-('2024-05-17', '2024-05-21', 47, 47),
-('2024-05-18', '2024-05-22', 48, 48),
-('2024-05-19', '2024-05-23', 49, 49),
-('2024-05-20', '2024-05-24', 50, 50);
+('2024-04-30', '2024-05-04', 30, 30);
 
 INSERT INTO ExperienceProviders (companyName, address, city, region, country, email, description) VALUES
 ('Adventure Explorers', '123 Adventure St', 'Adventureland', 'AdventureRegion', 'AdventureCountry', 'info@adventureexplorers.com', 'Experience the thrill of outdoor adventures with our expert guides.'),
@@ -594,26 +546,7 @@ INSERT INTO Experience_Reviews (content, providerID, travelerID) VALUES
 ('Traveler''s Haven provided comfortable accommodations and friendly service. A home away from home!', 28, 27),
 ('Explorers'' Paradise offered exciting adventures and breathtaking sights. A journey to remember!', 29, 28),
 ('Local Flavors showcased the delicious local cuisine. A culinary delight!', 30, 29),
-('Enchanted Escapes provided magical experiences and enchanting adventures. Truly unforgettable!', 31, 30),
-('Urban Adventures offered vibrant city tours and cultural experiences. Immersed in the urban buzz!', 32, 31),
-('Nature''s Palette allowed me to capture the beauty of nature through art. A creative and inspiring journey!', 33, 32),
-('Historical Hideaways provided a glimpse into the past with their historic tours. Rich in history and heritage!', 34, 33),
-('Spiritual Sanctuaries offered a peaceful sanctuary for reflection and meditation. A spiritual retreat!', 35, 34),
-('Adventure Awaits provided thrilling adventures and exciting escapades. Adrenaline rush guaranteed!', 36, 35),
-('Cultural Encounters offered enriching cultural experiences and meaningful connections. A cultural exchange to remember!', 37, 36),
-('Wilderness Wanderlust provided an escape to the untamed beauty of wilderness. Nature at its best!', 38, 37),
-('Sensory Sojourns offered a journey of sensory exploration. A feast for the senses!', 39, 38),
-('Foodie Favorites indulged my taste buds with their culinary delights. A gastronomic adventure!', 40, 39),
-('Artisanal Adventures allowed me to appreciate the craftsmanship of local artisans. Truly inspiring!', 41, 40),
-('Eco Escapes provided eco-friendly adventures and sustainable travel options. Traveling with a purpose!', 42, 41),
-('Mindful Moments provided a mindful escape from the hustle and bustle of daily life. Relaxed and rejuvenated!', 43, 42),
-('Adventure Seekers offered thrilling adventures and adrenaline-fueled activities. An adventure of a lifetime!', 44, 43),
-('Cultural Connections facilitated meaningful cultural exchanges and connections. A bridge between cultures!', 45, 44),
-('Natural Wonders showcased the breathtaking beauty of nature. A nature lover''s paradise!', 46, 45),
-('Historic Hideaways offered immersive historic tours and heritage experiences. Stepping back in time!', 47, 46),
-('Spiritual Journeys provided a spiritual retreat for inner peace and reflection. Tranquil and serene!', 48, 47),
-('Artistic Escapes allowed me to unleash my creativity through art. A journey of self-expression!', 49, 48),
-('Culinary Delights indulged my palate with their gourmet offerings. A culinary adventure!', 50, 49);
+('Enchanted Escapes provided magical experiences and enchanting adventures. Truly unforgettable!', 31, 30);
 
 INSERT INTO AdLiaison (first_name, last_name, email) VALUES
 ('John', 'Doe', 'john.doe@example.com'),
@@ -709,12 +642,12 @@ INSERT INTO Advertiser (first_name, last_name, companyName, email, package, liai
 ('Lauren', 'Wood', 'Innovative Ventures', 'lauren.wood@outlook.com', 'Standard', 45),
 ('Zachary', 'Perez', 'Summit Solutions', 'zachary.perez@gmail.com', 'Premium', 45),
 ('Chelsea', 'Barnes', 'Dynamic Tech', 'chelsea.barnes@yahoo.com', 'Basic', 45),
-('Cody', 'Coleman', 'Innovative Solutions', 'cody.coleman@outlook.com', 'Standard', 47),
-('Hannah', 'Richardson', 'Summit Tech', 'hannah.richardson@gmail.com', 'Premium', 47),
-('Dylan', 'Cooper', 'Dynamic Innovations', 'dylan.cooper@yahoo.com', 'Basic', 47),
-('Alexis', 'Baker', 'Innovative Solutions', 'alexis.baker@outlook.com', 'Standard', 48),
-('Cameron', 'Ross', 'Summit Enterprises', 'cameron.ross@gmail.com', 'Premium', 48),
-('Madison', 'Peterson', 'Dynamic Ventures', 'madison.peterson@yahoo.com', 'Basic', 48);
+('Cody', 'Coleman', 'Innovative Solutions', 'cody.coleman@outlook.com', 'Standard', 1),
+('Hannah', 'Richardson', 'Summit Tech', 'hannah.richardson@gmail.com', 'Premium', 3),
+('Dylan', 'Cooper', 'Dynamic Innovations', 'dylan.cooper@yahoo.com', 'Basic', 1),
+('Alexis', 'Baker', 'Innovative Solutions', 'alexis.baker@outlook.com', 'Standard', 2),
+('Cameron', 'Ross', 'Summit Enterprises', 'cameron.ross@gmail.com', 'Premium', 3),
+('Madison', 'Peterson', 'Dynamic Ventures', 'madison.peterson@yahoo.com', 'Basic', 4);
 
 
 INSERT INTO Experience_Ads (package, providerID, advertiserID) VALUES
@@ -799,27 +732,7 @@ INSERT INTO Travel_Data (advertiserID, travelerID) VALUES
 (9, 27),
 (10, 28),
 (10, 29),
-(10, 30),
-(11, 31),
-(11, 32),
-(11, 33),
-(12, 34),
-(12, 35),
-(12, 36),
-(13, 37),
-(13, 38),
-(13, 39),
-(14, 40),
-(14, 41),
-(14, 42),
-(15, 43),
-(15, 44),
-(15, 45),
-(16, 46),
-(16, 47),
-(16, 48),
-(17, 49),
-(17, 50);
+(10, 30);
 
 INSERT INTO Property_Data (advertiserID, propertyID) VALUES
 (1, 1),
@@ -955,27 +868,7 @@ INSERT INTO Experience (date, bundleID, travelerID) VALUES
 ('2024-05-27', 27, 27),
 ('2024-05-28', 28, 28),
 ('2024-05-29', 29, 29),
-('2024-05-30', 30, 30),
-('2024-05-31', 31, 31),
-('2024-06-01', 32, 32),
-('2024-06-02', 33, 33),
-('2024-06-03', 34, 34),
-('2024-06-04', 35, 35),
-('2024-06-05', 36, 36),
-('2024-06-06', 37, 37),
-('2024-06-07', 38, 38),
-('2024-06-08', 39, 39),
-('2024-06-09', 40, 40),
-('2024-06-10', 41, 41),
-('2024-06-11', 42, 42),
-('2024-06-12', 43, 43),
-('2024-06-13', 44, 44),
-('2024-06-14', 45, 45),
-('2024-06-15', 46, 46),
-('2024-06-16', 47, 47),
-('2024-06-17', 48, 48),
-('2024-06-18', 49, 49),
-('2024-06-19', 50, 50);
+('2024-05-30', 30, 30);
 
 INSERT INTO Offer (bundleID, providerID) VALUES
 (1, 1),
