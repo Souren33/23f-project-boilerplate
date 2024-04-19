@@ -53,7 +53,7 @@ def get_all_ads(providerID):
 @experienceproviders.route('/Bundle/<providerID>', methods=['GET'])
 def get_all_bundles(providerID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from Bundle NATURAL JOIN Offer NATURAL JOIN ExperienceProviders where providerID = {0}'.format(providerID))
+    cursor.execute('select * from Bundle JOIN Offer JOIN ExperienceProviders where providerID = {0}'.format(providerID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -111,11 +111,10 @@ def get_experiences_in_bundle(bundleID):
     return the_response
 
         ## view info of an experience for a specific traveler
-@experienceproviders.route('/experience/<bundleID>/<travelerID>', methods=['GET'])
-def get_experience_info(bundleID, travelerID):
+@experienceproviders.route('/experience/<travelerID>', methods=['GET'])
+def get_experience_info(travelerID):
     cursor = db.get_db().cursor()
-    query = 'select * from Experience where bundleID = {0}'.format(bundleID)
-    query += ' AND travelerID = {0}'.format(travelerID)
+    query = 'select * from Experience where travelerID = {0}'.format(travelerID)
     cursor.execute(query)
     row_headers = [x[0] for x in cursor.description]
     json_data = []
@@ -128,10 +127,10 @@ def get_experience_info(bundleID, travelerID):
     return the_response
 
 ## get ad given advertiser and provider ids
-@experienceproviders.route('/Experience_Ads/<advertiserID>/<providerID>', methods=['GET'])
-def get_ad(advertiserID, providerID):
+@experienceproviders.route('/Experience_Ads/<adID>/<providerID>', methods=['GET'])
+def get_ad(adID, providerID):
     cursor = db.get_db().cursor()
-    query = 'select * from Experience_Ads where advertiserID = {0}'.format(advertiserID)
+    query = 'select * from Experience_Ads where adID = {0}'.format(adID)
     query += ' AND providerID = {0}'.format(providerID)
     cursor.execute(query)
     row_headers = [x[0] for x in cursor.description]
