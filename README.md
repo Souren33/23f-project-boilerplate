@@ -1,5 +1,5 @@
 # BurrowConnect Project
-Contributors: Benjamin Pierce Souren Prakash, Atharva Nilapwar, Mackinley Morgan, Abhir Naik
+Contributors: Benjamin Pierce, Souren Prakash, Atharva Nilapwar, Mackinley Morgan, Abhir Naik
 
 **Video Link:** https://youtu.be/NkcyQMjRQBI
 
